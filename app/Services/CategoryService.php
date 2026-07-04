@@ -11,7 +11,7 @@ class CategoryService
 {
     public function paginate(int $perPage = 10): LengthAwarePaginator
     {
-        return Category::latest()->paginate($perPage);
+        return Category::withCount('products')->latest()->paginate($perPage);
     }
 
     public function all(): Collection

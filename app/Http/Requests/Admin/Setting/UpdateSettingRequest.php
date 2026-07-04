@@ -12,7 +12,7 @@ class UpdateSettingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,6 +30,11 @@ class UpdateSettingRequest extends FormRequest
         'address'          => ['nullable', 'string'],
         'logo'             => ['nullable', 'image', 'mimes:jpg,jpeg,png,svg,webp', 'max:2048'],
         'favicon'          => ['nullable', 'image', 'mimes:ico,png', 'max:1024'],
+        'hero_title'       => ['nullable', 'string', 'max:150'],
+        'hero_subtitle'    => ['nullable', 'string', 'max:255'],
+        'facebook'         => ['nullable', 'url'],
+        'instagram'        => ['nullable', 'url'],
+        'tiktok'           => ['nullable', 'url'],
     ];
 }
 }

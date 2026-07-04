@@ -26,10 +26,17 @@
             </div>
 
             <div>
+                <x-input-label for="subtitle" value="Subjudul (opsional)" />
+                <x-text-input id="subtitle" name="subtitle" type="text" class="mt-1 block w-full"
+                    :value="old('subtitle')" placeholder="Contoh: Diskon hingga 50% untuk semua produk" />
+                <x-input-error class="mt-2" :messages="$errors->get('subtitle')" />
+            </div>
+
+            <div>
                 <x-input-label for="image" value="Gambar Banner" />
-                <p class="mt-1 text-xs text-gray-500">Disarankan rasio 16:7, format JPG/PNG.</p>
+                <p class="mt-1 text-xs text-gray-500">Disarankan rasio 21:7, format JPG/PNG/WEBP, maks. 2MB.</p>
                 <div class="mt-2">
-                    <img id="image-preview" src="https://placehold.co/640x280?text=Banner" class="mb-3 aspect-[16/7] w-full rounded-lg border border-gray-200 object-cover">
+                    <img id="image-preview" src="https://placehold.co/640x210?text=Banner" class="mb-3 aspect-[21/7] w-full rounded-lg border border-gray-200 object-cover">
                     <label for="image" class="inline-block cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
                         Pilih Gambar
                     </label>
@@ -39,24 +46,34 @@
                 <x-input-error class="mt-2" :messages="$errors->get('image')" />
             </div>
 
-            <div>
-                <x-input-label for="link" value="Tautan Tujuan (opsional)" />
-                <x-text-input id="link" name="link" type="url" class="mt-1 block w-full"
-                    :value="old('link')" placeholder="https://" />
-                <x-input-error class="mt-2" :messages="$errors->get('link')" />
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div>
+                    <x-input-label for="button_text" value="Teks Tombol (opsional)" />
+                    <x-text-input id="button_text" name="button_text" type="text" class="mt-1 block w-full"
+                        :value="old('button_text')" maxlength="50" placeholder="Contoh: Belanja Sekarang" />
+                    <x-input-error class="mt-2" :messages="$errors->get('button_text')" />
+                </div>
+                <div>
+                    <x-input-label for="button_link" value="Tautan Tombol (opsional)" />
+                    <x-text-input id="button_link" name="button_link" type="url" class="mt-1 block w-full"
+                        :value="old('button_link')" placeholder="https://" />
+                    <x-input-error class="mt-2" :messages="$errors->get('button_link')" />
+                </div>
             </div>
 
             <div>
-                <x-input-label for="order" value="Urutan Tampil" />
-                <x-text-input id="order" name="order" type="number" min="0" class="mt-1 block w-full sm:w-40"
-                    :value="old('order', 0)" />
-                <x-input-error class="mt-2" :messages="$errors->get('order')" />
+                <x-input-label for="sort_order" value="Urutan Tampil" />
+                <x-text-input id="sort_order" name="sort_order" type="number" min="0" class="mt-1 block w-full sm:w-40"
+                    :value="old('sort_order', 0)" required />
+                <x-input-error class="mt-2" :messages="$errors->get('sort_order')" />
             </div>
 
             <div class="flex items-center gap-3">
+                <input type="hidden" name="is_active" value="0">
                 <input id="is_active" name="is_active" type="checkbox" value="1" checked
                     class="rounded border-gray-300 text-emerald-600 shadow-sm focus:ring-emerald-500">
                 <label for="is_active" class="text-sm text-gray-700">Tampilkan banner ini</label>
+                <x-input-error class="mt-2" :messages="$errors->get('is_active')" />
             </div>
 
             <div class="flex items-center justify-end gap-3 border-t border-gray-100 pt-6">

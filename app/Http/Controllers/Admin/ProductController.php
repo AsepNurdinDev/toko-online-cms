@@ -7,13 +7,15 @@ use App\Http\Requests\Admin\Product\StoreProductRequest;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use App\Models\Product;
 use App\Services\CategoryService;
+use App\Services\MediaService;
 use App\Services\ProductService;
 
 class ProductController extends Controller
 {
     public function __construct(
         protected ProductService $productService,
-        protected CategoryService $categoryService
+        protected CategoryService $categoryService,
+        protected MediaService $mediaService
     ) {}
 
     public function index()
@@ -32,7 +34,13 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        $this->productService->create($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('thumbnail')) {
+            $data['thumbnail'] = $this->mediaService->upload($request->file('thumbnail'), 'products');
+        }
+
+        $this->productService->create($data);
 
         return redirect()
             ->route('admin.products.index')
@@ -51,9 +59,16 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $data = $request->validated();
+
+        if ($request->hasFile('thumbnail')) {
+            $this->mediaService->delete($product->thumbnail);
+            $data['thumbnail'] = $this->mediaService->upload($request->file('thumbnail'), 'products');
+        }
+
         $this->productService->update(
             $product,
-            $request->validated()
+            $data
         );
 
         return redirect()
@@ -63,6 +78,8 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        $this->mediaService->delete($product->thumbnail);
+
         $this->productService->delete($product);
 
         return redirect()

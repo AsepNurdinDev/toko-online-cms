@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Profile;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UpdatePasswordRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class UpdatePasswordRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -20,17 +21,15 @@ class UpdatePasswordRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
-    use Illuminate\Validation\Rules\Password;
-
-public function rules(): array
-{
-    return [
-        'current_password' => ['required', 'current_password'],
-        'password' => [
-            'required',
-            'confirmed',
-            Password::defaults(),
-        ],
-    ];
-}
+    public function rules(): array
+    {
+        return [
+            'current_password' => ['required', 'current_password'],
+            'password' => [
+                'required',
+                'confirmed',
+                Password::defaults(),
+            ],
+        ];
+    }
 }

@@ -28,6 +28,7 @@
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                 :value="old('name')" required autofocus placeholder="Contoh: Kaos Polos Katun" />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                            <p class="mt-1 text-xs text-gray-400">SKU akan dibuat otomatis oleh sistem.</p>
                         </div>
 
                         <div>
@@ -35,7 +36,7 @@
                             <select id="category_id" name="category_id" required
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500">
                                 <option value="">Pilih kategori</option>
-                                @foreach ($categories ?? [] as $cat)
+                                @foreach ($categories as $cat)
                                     <option value="{{ $cat->id }}" @selected(old('category_id') == $cat->id)>{{ $cat->name }}</option>
                                 @endforeach
                             </select>
@@ -52,17 +53,24 @@
 
                         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                             <div>
-                                <x-input-label for="price" value="Harga (Rp)" />
+                                <x-input-label for="price" value="Harga Normal (Rp)" />
                                 <x-text-input id="price" name="price" type="number" min="0" step="1" class="mt-1 block w-full"
                                     :value="old('price')" required placeholder="0" />
                                 <x-input-error class="mt-2" :messages="$errors->get('price')" />
                             </div>
                             <div>
-                                <x-input-label for="stock" value="Stok" />
-                                <x-text-input id="stock" name="stock" type="number" min="0" step="1" class="mt-1 block w-full"
-                                    :value="old('stock')" required placeholder="0" />
-                                <x-input-error class="mt-2" :messages="$errors->get('stock')" />
+                                <x-input-label for="discount_price" value="Harga Diskon (opsional)" />
+                                <x-text-input id="discount_price" name="discount_price" type="number" min="0" step="1" class="mt-1 block w-full"
+                                    :value="old('discount_price')" placeholder="Kosongkan jika tidak ada diskon" />
+                                <x-input-error class="mt-2" :messages="$errors->get('discount_price')" />
                             </div>
+                        </div>
+
+                        <div>
+                            <x-input-label for="stock" value="Stok" />
+                            <x-text-input id="stock" name="stock" type="number" min="0" step="1" class="mt-1 block w-full sm:w-48"
+                                :value="old('stock', 0)" required placeholder="0" />
+                            <x-input-error class="mt-2" :messages="$errors->get('stock')" />
                         </div>
                     </div>
                 </div>
@@ -70,22 +78,52 @@
 
             <div class="space-y-6">
                 <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-                    <h3 class="mb-4 text-base font-semibold text-gray-900">Gambar Produk</h3>
-                    <img id="image-preview" src="https://placehold.co/400x300?text=%20" class="mb-3 aspect-square w-full rounded-lg border border-gray-200 object-cover">
-                    <label for="image" class="block w-full cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                        Pilih Gambar
-                    </label>
-                    <input id="image" name="image" type="file" accept="image/*" class="hidden"
-                        onchange="const f=this.files[0]; if(f){document.getElementById('image-preview').src=URL.createObjectURL(f);}">
-                    <x-input-error class="mt-2" :messages="$errors->get('image')" />
-                </div>
+    <h3 class="mb-4 text-base font-semibold text-gray-900">Foto Produk</h3>
+    
+    <!-- Beri ID yang unik dan tambahkan alt text yang jelas -->
+    <img id="product-thumbnail-preview" src="https://placehold.co/400x300?text=Belum+Ada+Gambar" class="mb-3 aspect-square w-full rounded-lg border border-gray-200 object-cover">
+    
+    <label for="thumbnail" class="block w-full cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+        Pilih Gambar
+    </label>
+    
+    <!-- Hapus onchange inline, kita handle di bawah -->
+    <input id="thumbnail" name="thumbnail" type="file" accept="image/*" class="hidden">
+    
+    <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
+</div>
 
-                <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-                    <h3 class="mb-3 text-base font-semibold text-gray-900">Status</h3>
+<!-- Tambahkan script ini di bagian bawah file blade Anda -->
+<script>
+    document.getElementById('thumbnail').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('product-thumbnail-preview');
+        
+        if (file) {
+            // Memastikan yang diupload benar-benar gambar
+            if (file.type.startsWith('image/')) {
+                preview.src = URL.createObjectURL(file);
+            } else {
+                alert('File yang dipilih harus berupa gambar!');
+                this.value = ''; // Reset input file jika bukan gambar
+            }
+        }
+    });
+</script>
+
+                <div class="space-y-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                    <h3 class="text-base font-semibold text-gray-900">Status</h3>
                     <div class="flex items-center gap-3">
+                        <input type="hidden" name="is_active" value="0">
                         <input id="is_active" name="is_active" type="checkbox" value="1" checked
                             class="rounded border-gray-300 text-emerald-600 shadow-sm focus:ring-emerald-500">
                         <label for="is_active" class="text-sm text-gray-700">Tampilkan produk ini di toko</label>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <input type="hidden" name="is_featured" value="0">
+                        <input id="is_featured" name="is_featured" type="checkbox" value="1" @checked(old('is_featured'))
+                            class="rounded border-gray-300 text-emerald-600 shadow-sm focus:ring-emerald-500">
+                        <label for="is_featured" class="text-sm text-gray-700">Jadikan produk unggulan</label>
                     </div>
                 </div>
 

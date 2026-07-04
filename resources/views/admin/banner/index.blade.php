@@ -19,22 +19,22 @@
         </div>
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            @forelse ($banners ?? [] as $banner)
+            @forelse ($banners as $banner)
                 <div class="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
                     <div class="relative aspect-[16/7] bg-gray-100">
-                        <img src="{{ $banner->image ? asset('storage/'.$banner->image) : 'https://placehold.co/480x210?text=Banner' }}"
+                        <img src="{{ storageUrl($banner->image) }}"
                             alt="{{ $banner->title }}" class="h-full w-full object-cover">
                         <span class="absolute left-3 top-3 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium
-                            {{ ($banner->is_active ?? true) ? 'bg-emerald-500 text-white' : 'bg-gray-800/70 text-white' }}">
-                            {{ ($banner->is_active ?? true) ? 'Aktif' : 'Nonaktif' }}
+                            {{ $banner->is_active ? 'bg-emerald-500 text-white' : 'bg-gray-800/70 text-white' }}">
+                            {{ $banner->is_active ? 'Aktif' : 'Nonaktif' }}
                         </span>
                     </div>
                     <div class="p-4">
                         <p class="truncate font-medium text-gray-900">{{ $banner->title }}</p>
-                        <p class="mt-1 truncate text-xs text-gray-500">{{ $banner->link ?? 'Tidak ada tautan' }}</p>
+                        <p class="truncate text-xs text-gray-500">{{ $banner->subtitle ?: '—' }}</p>
 
                         <div class="mt-4 flex items-center justify-between">
-                            <span class="text-xs text-gray-400">Urutan: {{ $banner->order ?? '-' }}</span>
+                            <span class="text-xs text-gray-400">Urutan: {{ $banner->sort_order }}</span>
                             <div class="flex items-center gap-1">
                                 <a href="{{ route('admin.banners.edit', $banner->id) }}"
                                     class="rounded-md p-2 text-gray-500 transition hover:bg-gray-100 hover:text-emerald-600" title="Edit">
@@ -67,8 +67,6 @@
             @endforelse
         </div>
 
-        @if (isset($banners) && $banners instanceof \Illuminate\Contracts\Pagination\Paginator)
-            <div>{{ $banners->links() }}</div>
-        @endif
+        <div>{{ $banners->links() }}</div>
     </div>
 </x-admin-layout>

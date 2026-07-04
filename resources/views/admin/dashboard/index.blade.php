@@ -60,8 +60,8 @@
             <div class="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500">Pengguna Terdaftar</p>
-                        <p class="mt-1 text-2xl font-semibold text-gray-900">{{ $totalUsers ?? 0 }}</p>
+                        <p class="text-sm font-medium text-gray-500">Total Admin</p>
+                        <p class="mt-1 text-2xl font-semibold text-gray-900">{{ $totalAdmins ?? 0 }}</p>
                     </div>
                     <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-violet-50 text-violet-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">

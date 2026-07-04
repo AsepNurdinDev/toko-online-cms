@@ -15,43 +15,30 @@
             </a>
         </div>
 
-        <form method="POST" action="{{ route('admin.categories.update', $category->id) }}" enctype="multipart/form-data" class="space-y-6 rounded-xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
+        <form method="POST" action="{{ route('admin.categories.update', $category->id) }}" class="space-y-6 rounded-xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
             @csrf
             @method('PUT')
 
             <div>
                 <x-input-label for="name" value="Nama Kategori" />
                 <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
-                    :value="old('name', $category->name)" required autofocus />
+                    :value="old('name', $category->name)" required autofocus maxlength="100" />
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
 
             <div>
                 <x-input-label for="description" value="Deskripsi (opsional)" />
                 <textarea id="description" name="description" rows="3"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500">{{ old('description', $category->description ?? '') }}</textarea>
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500">{{ old('description', $category->description) }}</textarea>
                 <x-input-error class="mt-2" :messages="$errors->get('description')" />
             </div>
 
-            <div>
-                <x-input-label for="image" value="Gambar Kategori" />
-                <div class="mt-2 flex items-center gap-4">
-                    <img id="image-preview"
-                        src="{{ $category->image ? asset('storage/'.$category->image) : 'https://placehold.co/80x80?text=%20' }}"
-                        class="h-16 w-16 rounded-lg border border-gray-200 object-cover">
-                    <label for="image" class="cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                        Ganti Gambar
-                    </label>
-                    <input id="image" name="image" type="file" accept="image/*" class="hidden"
-                        onchange="const f=this.files[0]; if(f){document.getElementById('image-preview').src=URL.createObjectURL(f);}">
-                </div>
-                <x-input-error class="mt-2" :messages="$errors->get('image')" />
-            </div>
-
             <div class="flex items-center gap-3">
-                <input id="is_active" name="is_active" type="checkbox" value="1" @checked(old('is_active', $category->is_active ?? true))
+                <input type="hidden" name="is_active" value="0">
+                <input id="is_active" name="is_active" type="checkbox" value="1" @checked(old('is_active', $category->is_active))
                     class="rounded border-gray-300 text-emerald-600 shadow-sm focus:ring-emerald-500">
                 <label for="is_active" class="text-sm text-gray-700">Aktifkan kategori ini</label>
+                <x-input-error class="mt-2" :messages="$errors->get('is_active')" />
             </div>
 
             <div class="flex items-center justify-end gap-3 border-t border-gray-100 pt-6">
