@@ -17,12 +17,12 @@
 
         <!-- Breadcrumb -->
         <nav class="mb-6 text-xs text-gray-500">
-            <a href="{{ route('shop.home') }}" class="hover:text-amber-600">Beranda</a>
+            <a href="{{ route('shop.home') }}" class="hover:text-[var(--shop-primary)]">Beranda</a>
             <span class="mx-1">/</span>
-            <a href="{{ route('shop.products') }}" class="hover:text-amber-600">Produk</a>
+            <a href="{{ route('shop.products') }}" class="hover:text-[var(--shop-primary)]">Produk</a>
             @if ($product->category)
                 <span class="mx-1">/</span>
-                <a href="{{ route('shop.products', ['kategori' => $product->category->slug]) }}" class="hover:text-amber-600">{{ $product->category->name }}</a>
+                <a href="{{ route('shop.products', ['kategori' => $product->category->slug]) }}" class="hover:text-[var(--shop-primary)]">{{ $product->category->name }}</a>
             @endif
             <span class="mx-1">/</span>
             <span class="text-gray-700">{{ $product->name }}</span>
@@ -30,9 +30,28 @@
 
         <div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
 
-            <!-- Image -->
-            <div class="aspect-square overflow-hidden rounded-2xl border border-gray-100 bg-gray-100">
-                <img src="{{ storageUrl($product->thumbnail, 'images/no-image.png') }}" alt="{{ $product->name }}" class="h-full w-full object-cover">
+            <!-- Galeri Foto -->
+            @php $galleryImages = $product->images ?? collect(); @endphp
+            <div x-data="{ active: 0, images: {{ Illuminate\Support\Js::from(
+                    $galleryImages->isNotEmpty()
+                        ? $galleryImages->pluck('image')->map(fn ($img) => storageUrl($img))->prepend(storageUrl($product->thumbnail, 'images/no-image.png'))
+                        : [storageUrl($product->thumbnail, 'images/no-image.png')]
+                ) }} }">
+                <div class="aspect-square overflow-hidden rounded-2xl border border-gray-100 bg-gray-100">
+                    <img :src="images[active]" alt="{{ $product->name }}" class="h-full w-full object-cover">
+                </div>
+
+                @if ($galleryImages->isNotEmpty())
+                    <div class="mt-3 flex gap-3 overflow-x-auto pb-1">
+                        <template x-for="(image, index) in images" :key="index">
+                            <button type="button" @click="active = index"
+                                class="h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 transition"
+                                :class="active === index ? 'border-[var(--shop-primary)]' : 'border-transparent opacity-70 hover:opacity-100'">
+                                <img :src="image" class="h-full w-full object-cover">
+                            </button>
+                        </template>
+                    </div>
+                @endif
             </div>
 
             <!-- Info -->
@@ -56,7 +75,7 @@
                     dec() { if (this.qty > 1) this.qty-- }
                 }">
                 @if ($product->category)
-                    <span class="text-xs font-semibold uppercase tracking-wide text-amber-600">{{ $product->category->name }}</span>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-[var(--shop-primary)]">{{ $product->category->name }}</span>
                 @endif
 
                 <h1 class="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">{{ $product->name }}</h1>

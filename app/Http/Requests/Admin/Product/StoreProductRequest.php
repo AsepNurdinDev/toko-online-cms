@@ -20,7 +20,7 @@ class StoreProductRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+public function rules(): array
 {
     return [
         'category_id'    => ['required', 'exists:categories,id'],
@@ -30,6 +30,8 @@ class StoreProductRequest extends FormRequest
         'discount_price' => ['nullable', 'numeric', 'min:0'],
         'stock'          => ['required', 'integer', 'min:0'],
         'thumbnail'      => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        'gallery'        => ['nullable', 'array', 'max:10'],
+        'gallery.*'      => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         'is_featured'    => ['required', 'boolean'],
         'is_active'      => ['required', 'boolean'],
     ];

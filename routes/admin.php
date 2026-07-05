@@ -18,6 +18,8 @@ Route::middleware('auth')
 
         Route::resource('categories', CategoryController::class)->except('show');
         Route::resource('products', ProductController::class)->except('show');
+        Route::delete('products/{product}/images/{image}', [ProductController::class, 'destroyImage'])
+        ->name('products.images.destroy');
         Route::resource('banners', BannerController::class)->except('show');
 
         Route::get('settings', [SettingController::class, 'edit'])->name('settings.edit');

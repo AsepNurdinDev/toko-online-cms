@@ -78,38 +78,42 @@
 
             <div class="space-y-6">
                 <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-    <h3 class="mb-4 text-base font-semibold text-gray-900">Foto Produk</h3>
-    
-    <!-- Beri ID yang unik dan tambahkan alt text yang jelas -->
-    <img id="product-thumbnail-preview" src="https://placehold.co/400x300?text=Belum+Ada+Gambar" class="mb-3 aspect-square w-full rounded-lg border border-gray-200 object-cover">
-    
-    <label for="thumbnail" class="block w-full cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-        Pilih Gambar
-    </label>
-    
-    <!-- Hapus onchange inline, kita handle di bawah -->
-    <input id="thumbnail" name="thumbnail" type="file" accept="image/*" class="hidden">
-    
-    <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
-</div>
+                    <h3 class="mb-4 text-base font-semibold text-gray-900">Foto Produk</h3>
+                    <x-admin.image-upload
+                        name="thumbnail"
+                        :current="$product->thumbnail ? storageUrl($product->thumbnail) : null"
+                        label="Pilih Gambar"
+                        change-label="Ganti Gambar"
+                        :errors="$errors->get('thumbnail')"
+                    />
+                    <p class="mt-2 text-xs text-gray-400">Foto ini yang tampil di kartu produk & daftar toko.</p>
+                </div>
 
-<!-- Tambahkan script ini di bagian bawah file blade Anda -->
-<script>
-    document.getElementById('thumbnail').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        const preview = document.getElementById('product-thumbnail-preview');
-        
-        if (file) {
-            // Memastikan yang diupload benar-benar gambar
-            if (file.type.startsWith('image/')) {
-                preview.src = URL.createObjectURL(file);
-            } else {
-                alert('File yang dipilih harus berupa gambar!');
-                this.value = ''; // Reset input file jika bukan gambar
-            }
-        }
-    });
-</script>
+                <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                    <h3 class="mb-1 text-base font-semibold text-gray-900">Galeri Foto Tambahan</h3>
+                    <p class="mb-4 text-xs text-gray-500">Tampil di halaman detail produk agar pembeli bisa lihat dari berbagai sisi.</p>
+
+                    @if (($product->images ?? collect())->isNotEmpty())
+                        <div class="mb-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
+                            @foreach ($product->images as $image)
+                                <div class="group relative aspect-square overflow-hidden rounded-lg border border-gray-200">
+                                    <img src="{{ storageUrl($image->image) }}" class="h-full w-full object-cover">
+                                    <button type="submit" form="delete-img-{{ $image->id }}"
+                                        onclick="return confirm('Hapus foto ini dari galeri?')"
+                                        class="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition group-hover:opacity-100"
+                                        title="Hapus foto ini">
+                                        <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <x-admin.gallery-upload name="gallery" />
+                    <x-input-error class="mt-2" :messages="collect($errors->get('gallery.*'))->flatten()->all()" />
+                </div>
 
                 <div class="space-y-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
                     <h3 class="text-base font-semibold text-gray-900">Status</h3>
@@ -137,5 +141,16 @@
                 </div>
             </div>
         </form>
+
+        {{-- Form tersembunyi untuk hapus per-foto galeri. Tidak bisa ditaruh nested di dalam
+             form utama (HTML tidak mengizinkan <form> di dalam <form>), jadi tombol hapus di
+             atas menunjuk ke sini lewat atribut form="delete-img-{id}". --}}
+        @foreach ($product->images ?? [] as $image)
+            <form id="delete-img-{{ $image->id }}" method="POST"
+                action="{{ route('admin.products.images.destroy', [$product, $image]) }}" class="hidden">
+                @csrf
+                @method('DELETE')
+            </form>
+        @endforeach
     </div>
 </x-admin-layout>

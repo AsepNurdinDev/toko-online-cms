@@ -82,34 +82,64 @@
                 <p class="mt-1 text-sm text-gray-500">Format gambar, maks. 2MB untuk logo dan 1MB untuk favicon.</p>
 
                 <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                    <div class="flex items-center gap-4">
-                        <img id="logo-preview"
-                            src="{{ !empty($settings['logo']) ? storageUrl($settings['logo']) : 'https://placehold.co/96x96?text=Logo' }}"
-                            alt="Logo saat ini" class="h-20 w-20 rounded-lg border border-gray-200 bg-white object-contain">
-                        <div>
-                            <label for="logo" class="inline-flex cursor-pointer items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50">
-                                Pilih Logo
-                            </label>
-                            <input id="logo" name="logo" type="file" accept="image/*" class="hidden"
-                                onchange="const f=this.files[0]; if(f){document.getElementById('logo-preview').src=URL.createObjectURL(f);}">
-                            <x-input-error class="mt-2" :messages="$errors->get('logo')" />
-                        </div>
-                    </div>
+                    <x-admin.image-upload
+                        name="logo"
+                        :current="!empty($settings['logo']) ? storageUrl($settings['logo']) : null"
+                        label="Pilih Logo"
+                        :errors="$errors->get('logo')"
+                    />
 
-                    <div class="flex items-center gap-4">
-                        <img id="favicon-preview"
-                            src="{{ !empty($settings['favicon']) ? storageUrl($settings['favicon']) : 'https://placehold.co/64x64?text=Favicon' }}"
-                            alt="Favicon saat ini" class="h-16 w-16 rounded-lg border border-gray-200 bg-white object-contain">
-                        <div>
-                            <label for="favicon" class="inline-flex cursor-pointer items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50">
-                                Pilih Favicon
-                            </label>
-                            <input id="favicon" name="favicon" type="file" accept="image/png,image/x-icon" class="hidden"
-                                onchange="const f=this.files[0]; if(f){document.getElementById('favicon-preview').src=URL.createObjectURL(f);}">
-                            <x-input-error class="mt-2" :messages="$errors->get('favicon')" />
-                        </div>
-                    </div>
+                    <x-admin.image-upload
+                        name="favicon"
+                        :current="!empty($settings['favicon']) ? storageUrl($settings['favicon']) : null"
+                        label="Pilih Favicon"
+                        :errors="$errors->get('favicon')"
+                    />
                 </div>
+            </div>
+
+            <!-- Warna Tema -->
+            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8"
+                x-data="{ color: '{{ old('theme_color', $settings['theme_color'] ?? '#f59e0b') }}' }">
+                <h3 class="text-base font-semibold text-gray-900">Warna Tema Toko</h3>
+                <p class="mt-1 text-sm text-gray-500">
+                    Warna ini otomatis dipakai di tombol, tautan aktif, dan aksen di seluruh halaman toko
+                    (navbar, banner, kartu produk, footer) — cocok untuk mengustom tampilan sesuai brand tiap klien
+                    tanpa perlu mengubah kode.
+                </p>
+
+                <div class="mt-5 flex flex-wrap items-center gap-3">
+                    @foreach ([
+                        'Amber' => '#f59e0b',
+                        'Emerald' => '#10b981',
+                        'Rose' => '#f43f5e',
+                        'Biru' => '#3b82f6',
+                        'Ungu' => '#8b5cf6',
+                        'Zinc Gelap' => '#27272a',
+                    ] as $presetName => $presetColor)
+                        <button type="button" @click="color = '{{ $presetColor }}'"
+                            class="group flex items-center gap-2 rounded-full border border-gray-200 py-1.5 pl-1.5 pr-3 text-xs font-medium text-gray-600 transition hover:border-gray-300"
+                            :class="color === '{{ $presetColor }}' ? 'ring-2 ring-offset-1' : ''"
+                            :style="color === '{{ $presetColor }}' ? 'ring-color: {{ $presetColor }}' : ''">
+                            <span class="h-5 w-5 rounded-full border border-black/10" style="background-color: {{ $presetColor }}"></span>
+                            {{ $presetName }}
+                        </button>
+                    @endforeach
+                </div>
+
+                <div class="mt-5 flex items-center gap-4">
+                    <input type="color" x-model="color" name="theme_color"
+                        class="h-12 w-16 cursor-pointer rounded-md border border-gray-300 p-1">
+                    <div>
+                        <p class="text-sm font-medium text-gray-700">Atau pilih warna kustom sendiri</p>
+                        <p class="text-xs text-gray-400" x-text="color"></p>
+                    </div>
+                    <a href="{{ route('shop.home') }}" target="_blank"
+                        class="ml-auto inline-flex items-center gap-1.5 rounded-md border border-gray-300 px-3 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50">
+                        Pratinjau Toko &rarr;
+                    </a>
+                </div>
+                <x-input-error class="mt-2" :messages="$errors->get('theme_color')" />
             </div>
 
             <!-- Media sosial -->

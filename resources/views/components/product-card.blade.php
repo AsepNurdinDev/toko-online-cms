@@ -26,10 +26,10 @@
 
     <div class="flex flex-1 flex-col p-4">
         @if ($product->category)
-            <span class="text-xs font-medium uppercase tracking-wide text-amber-600">{{ $product->category->name }}</span>
+            <span class="text-xs font-medium uppercase tracking-wide text-[var(--shop-primary)]">{{ $product->category->name }}</span>
         @endif
 
-        <a href="{{ route('shop.show', $product->slug) }}" class="mt-1 line-clamp-2 text-sm font-semibold text-gray-900 hover:text-amber-600">
+        <a href="{{ route('shop.show', $product->slug) }}" class="mt-1 line-clamp-2 text-sm font-semibold text-gray-900 hover:text-[var(--shop-primary)]">
             {{ $product->name }}
         </a>
 

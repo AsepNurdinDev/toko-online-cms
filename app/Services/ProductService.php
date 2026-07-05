@@ -3,12 +3,17 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
 class ProductService
 {
+    public function __construct(
+        protected MediaService $mediaService
+    ) {}
+
     public function paginate(int $perPage = 10): LengthAwarePaginator
     {
         return Product::with('category')
@@ -50,6 +55,41 @@ class ProductService
 
     public function delete(Product $product): bool
     {
+        // Hapus file fisik tiap foto galeri dulu, baru hapus produknya.
+        // Baris di product_images akan ikut terhapus otomatis lewat cascadeOnDelete di migrasi.
+        foreach ($product->images as $image) {
+            $this->mediaService->delete($image->image);
+        }
+
         return $product->delete();
+    }
+
+    /**
+     * Upload & simpan banyak foto galeri sekaligus untuk satu produk.
+     *
+     * @param  \Illuminate\Http\UploadedFile[]  $files
+     */
+    public function attachImages(Product $product, array $files): void
+    {
+        $startOrder = $product->images()->max('sort_order') + 1;
+
+        foreach ($files as $index => $file) {
+            $path = $this->mediaService->upload($file, 'products/gallery');
+
+            ProductImage::create([
+                'product_id' => $product->id,
+                'image'      => $path,
+                'sort_order' => $startOrder + $index,
+            ]);
+        }
+    }
+
+    /**
+     * Hapus satu foto galeri (file fisik + baris database).
+     */
+    public function removeImage(ProductImage $image): void
+    {
+        $this->mediaService->delete($image->image);
+        $image->delete();
     }
 }

@@ -34,16 +34,16 @@
 
             <div>
                 <x-input-label for="image" value="Gambar Banner" />
-                <p class="mt-1 text-xs text-gray-500">Disarankan rasio 21:7, format JPG/PNG/WEBP, maks. 2MB.</p>
                 <div class="mt-2">
-                    <img id="image-preview" src="https://placehold.co/640x210?text=Banner" class="mb-3 aspect-[21/7] w-full rounded-lg border border-gray-200 object-cover">
-                    <label for="image" class="inline-block cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-                        Pilih Gambar
-                    </label>
-                    <input id="image" name="image" type="file" accept="image/*" class="hidden" required
-                        onchange="const f=this.files[0]; if(f){document.getElementById('image-preview').src=URL.createObjectURL(f);}">
+                    <x-admin.image-upload
+                        name="image"
+                        shape="banner"
+                        label="Pilih Gambar"
+                        hint="Disarankan rasio 21:7, format JPG/PNG/WEBP, maks. 2MB."
+                        :required="true"
+                        :errors="$errors->get('image')"
+                    />
                 </div>
-                <x-input-error class="mt-2" :messages="$errors->get('image')" />
             </div>
 
             <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">

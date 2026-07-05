@@ -78,38 +78,21 @@
 
             <div class="space-y-6">
                 <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-    <h3 class="mb-4 text-base font-semibold text-gray-900">Foto Produk</h3>
-    
-    <!-- Beri ID yang unik dan tambahkan alt text yang jelas -->
-    <img id="product-thumbnail-preview" src="https://placehold.co/400x300?text=Belum+Ada+Gambar" class="mb-3 aspect-square w-full rounded-lg border border-gray-200 object-cover">
-    
-    <label for="thumbnail" class="block w-full cursor-pointer rounded-md border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
-        Pilih Gambar
-    </label>
-    
-    <!-- Hapus onchange inline, kita handle di bawah -->
-    <input id="thumbnail" name="thumbnail" type="file" accept="image/*" class="hidden">
-    
-    <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
-</div>
+                    <h3 class="mb-4 text-base font-semibold text-gray-900">Foto Produk</h3>
+                    <x-admin.image-upload
+                        name="thumbnail"
+                        label="Pilih Gambar"
+                        :errors="$errors->get('thumbnail')"
+                    />
+                    <p class="mt-2 text-xs text-gray-400">Foto ini yang tampil di kartu produk & daftar toko.</p>
+                </div>
 
-<!-- Tambahkan script ini di bagian bawah file blade Anda -->
-<script>
-    document.getElementById('thumbnail').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        const preview = document.getElementById('product-thumbnail-preview');
-        
-        if (file) {
-            // Memastikan yang diupload benar-benar gambar
-            if (file.type.startsWith('image/')) {
-                preview.src = URL.createObjectURL(file);
-            } else {
-                alert('File yang dipilih harus berupa gambar!');
-                this.value = ''; // Reset input file jika bukan gambar
-            }
-        }
-    });
-</script>
+                <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                    <h3 class="mb-1 text-base font-semibold text-gray-900">Galeri Foto Tambahan</h3>
+                    <p class="mb-4 text-xs text-gray-500">Foto-foto ini akan tampil di halaman detail produk agar pembeli bisa lihat dari berbagai sisi.</p>
+                    <x-admin.gallery-upload name="gallery" />
+                    <x-input-error class="mt-2" :messages="collect($errors->get('gallery.*'))->flatten()->all()" />
+                </div>
 
                 <div class="space-y-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
                     <h3 class="text-base font-semibold text-gray-900">Status</h3>
