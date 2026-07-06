@@ -1,4 +1,4 @@
-<x-admin-layout title="Edit Kategori">
+<x-admin.layout title="Edit Kategori">
     <x-slot name="header">
         <h2 class="truncate text-lg font-semibold text-gray-800">
             Edit Kategori
@@ -20,17 +20,17 @@
             @method('PUT')
 
             <div>
-                <x-input-label for="name" value="Nama Kategori" />
-                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                <x-admin.input-label for="name" value="Nama Kategori" />
+                <x-admin.text-input id="name" name="name" type="text" class="mt-1 block w-full"
                     :value="old('name', $category->name)" required autofocus maxlength="100" />
-                <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                <x-admin.input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
 
             <div>
-                <x-input-label for="description" value="Deskripsi (opsional)" />
+                <x-admin.input-label for="description" value="Deskripsi (opsional)" />
                 <textarea id="description" name="description" rows="3"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500">{{ old('description', $category->description) }}</textarea>
-                <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                <x-admin.input-error class="mt-2" :messages="$errors->get('description')" />
             </div>
 
             <div class="flex items-center gap-3">
@@ -38,7 +38,7 @@
                 <input id="is_active" name="is_active" type="checkbox" value="1" @checked(old('is_active', $category->is_active))
                     class="rounded border-gray-300 text-emerald-600 shadow-sm focus:ring-emerald-500">
                 <label for="is_active" class="text-sm text-gray-700">Aktifkan kategori ini</label>
-                <x-input-error class="mt-2" :messages="$errors->get('is_active')" />
+                <x-admin.input-error class="mt-2" :messages="$errors->get('is_active')" />
             </div>
 
             <div class="flex items-center justify-end gap-3 border-t border-gray-100 pt-6">
@@ -49,4 +49,4 @@
             </div>
         </form>
     </div>
-</x-admin-layout>
+</x-admin.layout>

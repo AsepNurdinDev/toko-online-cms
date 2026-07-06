@@ -13,34 +13,40 @@
                     class="absolute inset-0" style="{{ $index === 0 ? '' : 'display:none;' }}">
 
                     <!-- Gambar banner -->
-                    <img src="{{ storageUrl($banner->image) }}" alt="{{ $banner->title }}"
+                    <img src="{{ storageUrl($banner->image) }}" alt="{{ $banner->title ?: 'Banner' }}"
                         class="h-full w-full object-cover">
 
-                    <!-- Scrim: gradasi gelap dari bawah & kiri, memastikan gambar tidak pernah "bentrok" dengan teks -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div class="absolute inset-0 hidden bg-gradient-to-r from-black/60 via-black/10 to-transparent sm:block"></div>
+                    @php $hasText = $banner->title || $banner->subtitle || $banner->button_text; @endphp
 
-                    <!-- Konten teks: diberi panel semi-transparan + blur supaya tetap terbaca di atas gambar apa pun -->
-                    <div class="absolute inset-0 flex items-end sm:items-center">
-                        <div class="mx-auto w-full max-w-7xl px-4 pb-6 sm:px-6 sm:pb-0 lg:px-8">
-                            <div class="max-w-md rounded-2xl bg-black/25 p-4 text-white backdrop-blur-sm sm:bg-transparent sm:p-0 sm:backdrop-blur-0">
-                                <h2 class="line-clamp-2 text-xl font-extrabold leading-tight drop-shadow-sm sm:text-3xl lg:text-4xl">
-                                    {{ $banner->title }}
-                                </h2>
-                                @if ($banner->subtitle)
-                                    <p class="mt-2 line-clamp-2 text-sm text-white/90 drop-shadow-sm sm:text-base">
-                                        {{ $banner->subtitle }}
-                                    </p>
-                                @endif
-                                @if ($banner->button_text)
-                                    <a href="{{ $banner->button_link ?: route('shop.products') }}"
-                                        class="mt-4 inline-flex items-center gap-2 rounded-full bg-[var(--shop-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:brightness-90 sm:mt-5">
-                                        {{ $banner->button_text }}
-                                    </a>
-                                @endif
+                    @if ($hasText)
+                        <!-- Scrim: gradasi gelap dari bawah & kiri, memastikan gambar tidak pernah "bentrok" dengan teks -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute inset-0 hidden bg-gradient-to-r from-black/60 via-black/10 to-transparent sm:block"></div>
+
+                        <!-- Konten teks: diberi panel semi-transparan + blur supaya tetap terbaca di atas gambar apa pun -->
+                        <div class="absolute inset-0 flex items-end sm:items-center">
+                            <div class="mx-auto w-full max-w-7xl px-4 pb-6 sm:px-6 sm:pb-0 lg:px-8">
+                                <div class="max-w-md rounded-2xl bg-black/25 p-4 text-white backdrop-blur-sm sm:bg-transparent sm:p-0 sm:backdrop-blur-0">
+                                    @if ($banner->title)
+                                        <h2 class="line-clamp-2 text-xl font-extrabold leading-tight drop-shadow-sm sm:text-3xl lg:text-4xl">
+                                            {{ $banner->title }}
+                                        </h2>
+                                    @endif
+                                    @if ($banner->subtitle)
+                                        <p class="mt-2 line-clamp-2 text-sm text-white/90 drop-shadow-sm sm:text-base">
+                                            {{ $banner->subtitle }}
+                                        </p>
+                                    @endif
+                                    @if ($banner->button_text)
+                                        <a href="{{ $banner->button_link ?: route('shop.products') }}"
+                                            class="mt-4 inline-flex items-center gap-2 rounded-full bg-[var(--shop-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:brightness-90 sm:mt-5">
+                                            {{ $banner->button_text }}
+                                        </a>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             @endforeach
         </div>

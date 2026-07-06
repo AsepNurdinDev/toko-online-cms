@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-admin.auth-layout>
 
 <div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
 
@@ -14,7 +14,7 @@
             </p>
         </div>
 
-        <x-auth-session-status
+        <x-admin.auth-session-status
             class="mb-4"
             :status="session('status')"
         />
@@ -97,4 +97,4 @@
 
 </div>
 
-</x-guest-layout>
+</x-admin.auth-layout>

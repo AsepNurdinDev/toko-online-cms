@@ -1,4 +1,4 @@
-<x-admin-layout title="Tambah Banner">
+<x-admin.layout title="Tambah Banner">
     <x-slot name="header">
         <h2 class="truncate text-lg font-semibold text-gray-800">
             Tambah Banner
@@ -19,21 +19,22 @@
             @csrf
 
             <div>
-                <x-input-label for="title" value="Judul Banner" />
-                <x-text-input id="title" name="title" type="text" class="mt-1 block w-full"
-                    :value="old('title')" required autofocus placeholder="Contoh: Promo Gajian 12.12" />
-                <x-input-error class="mt-2" :messages="$errors->get('title')" />
+                <x-admin.input-label for="title" value="Judul Banner (opsional)" />
+                <x-admin.text-input id="title" name="title" type="text" class="mt-1 block w-full"
+                    :value="old('title')" autofocus placeholder="Contoh: Promo Gajian 12.12" />
+                <p class="mt-1 text-xs text-gray-400">Kosongkan kalau gambar banner sudah cukup jelas tanpa teks — supaya tidak menutupi foto.</p>
+                <x-admin.input-error class="mt-2" :messages="$errors->get('title')" />
             </div>
 
             <div>
-                <x-input-label for="subtitle" value="Subjudul (opsional)" />
-                <x-text-input id="subtitle" name="subtitle" type="text" class="mt-1 block w-full"
+                <x-admin.input-label for="subtitle" value="Subjudul (opsional)" />
+                <x-admin.text-input id="subtitle" name="subtitle" type="text" class="mt-1 block w-full"
                     :value="old('subtitle')" placeholder="Contoh: Diskon hingga 50% untuk semua produk" />
-                <x-input-error class="mt-2" :messages="$errors->get('subtitle')" />
+                <x-admin.input-error class="mt-2" :messages="$errors->get('subtitle')" />
             </div>
 
             <div>
-                <x-input-label for="image" value="Gambar Banner" />
+                <x-admin.input-label for="image" value="Gambar Banner" />
                 <div class="mt-2">
                     <x-admin.image-upload
                         name="image"
@@ -48,24 +49,24 @@
 
             <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
-                    <x-input-label for="button_text" value="Teks Tombol (opsional)" />
-                    <x-text-input id="button_text" name="button_text" type="text" class="mt-1 block w-full"
+                    <x-admin.input-label for="button_text" value="Teks Tombol (opsional)" />
+                    <x-admin.text-input id="button_text" name="button_text" type="text" class="mt-1 block w-full"
                         :value="old('button_text')" maxlength="50" placeholder="Contoh: Belanja Sekarang" />
-                    <x-input-error class="mt-2" :messages="$errors->get('button_text')" />
+                    <x-admin.input-error class="mt-2" :messages="$errors->get('button_text')" />
                 </div>
                 <div>
-                    <x-input-label for="button_link" value="Tautan Tombol (opsional)" />
-                    <x-text-input id="button_link" name="button_link" type="url" class="mt-1 block w-full"
+                    <x-admin.input-label for="button_link" value="Tautan Tombol (opsional)" />
+                    <x-admin.text-input id="button_link" name="button_link" type="url" class="mt-1 block w-full"
                         :value="old('button_link')" placeholder="https://" />
-                    <x-input-error class="mt-2" :messages="$errors->get('button_link')" />
+                    <x-admin.input-error class="mt-2" :messages="$errors->get('button_link')" />
                 </div>
             </div>
 
             <div>
-                <x-input-label for="sort_order" value="Urutan Tampil" />
-                <x-text-input id="sort_order" name="sort_order" type="number" min="0" class="mt-1 block w-full sm:w-40"
+                <x-admin.input-label for="sort_order" value="Urutan Tampil" />
+                <x-admin.text-input id="sort_order" name="sort_order" type="number" min="0" class="mt-1 block w-full sm:w-40"
                     :value="old('sort_order', 0)" required />
-                <x-input-error class="mt-2" :messages="$errors->get('sort_order')" />
+                <x-admin.input-error class="mt-2" :messages="$errors->get('sort_order')" />
             </div>
 
             <div class="flex items-center gap-3">
@@ -73,7 +74,7 @@
                 <input id="is_active" name="is_active" type="checkbox" value="1" checked
                     class="rounded border-gray-300 text-emerald-600 shadow-sm focus:ring-emerald-500">
                 <label for="is_active" class="text-sm text-gray-700">Tampilkan banner ini</label>
-                <x-input-error class="mt-2" :messages="$errors->get('is_active')" />
+                <x-admin.input-error class="mt-2" :messages="$errors->get('is_active')" />
             </div>
 
             <div class="flex items-center justify-end gap-3 border-t border-gray-100 pt-6">
@@ -84,4 +85,4 @@
             </div>
         </form>
     </div>
-</x-admin-layout>
+</x-admin.layout>

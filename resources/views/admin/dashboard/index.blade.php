@@ -1,4 +1,4 @@
-<x-admin-layout title="Dashboard">
+<x-admin.layout title="Dashboard">
     <x-slot name="header">
         <h2 class="truncate text-lg font-semibold text-gray-800">
             Dashboard
@@ -96,44 +96,23 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <!-- Quick actions -->
-            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm lg:col-span-2">
-                <h3 class="mb-4 text-sm font-semibold text-gray-900">Aksi Cepat</h3>
-                <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                    <a href="{{ route('admin.products.create') }}" class="flex items-center gap-3 rounded-lg border border-gray-200 p-4 transition hover:border-emerald-300 hover:bg-emerald-50">
-                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-lg font-bold text-emerald-600">+</span>
-                        <span class="text-sm font-medium text-gray-700">Tambah Produk</span>
-                    </a>
-                    <a href="{{ route('admin.categories.create') }}" class="flex items-center gap-3 rounded-lg border border-gray-200 p-4 transition hover:border-amber-300 hover:bg-amber-50">
-                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-lg font-bold text-amber-600">+</span>
-                        <span class="text-sm font-medium text-gray-700">Tambah Kategori</span>
-                    </a>
-                    <a href="{{ route('admin.banners.create') }}" class="flex items-center gap-3 rounded-lg border border-gray-200 p-4 transition hover:border-sky-300 hover:bg-sky-50">
-                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-lg font-bold text-sky-600">+</span>
-                        <span class="text-sm font-medium text-gray-700">Tambah Banner</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Tips -->
-            <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-                <h3 class="mb-3 text-sm font-semibold text-gray-900">Tips</h3>
-                <ul class="space-y-3 text-sm text-gray-600">
-                    <li class="flex gap-2">
-                        <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">✓</span>
-                        Atur warna tema toko di <a href="{{ route('admin.settings.edit') }}" class="font-medium text-emerald-600 hover:underline">Pengaturan</a> agar tampilan sesuai brand Anda.
-                    </li>
-                    <li class="flex gap-2">
-                        <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">✓</span>
-                        Gunakan gambar banner rasio 21:7 agar judul &amp; tombol tidak terpotong.
-                    </li>
-                    <li class="flex gap-2">
-                        <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">✓</span>
-                        Nonaktifkan produk yang stoknya habis lewat toggle "Tampilkan" di halaman produk.
-                    </li>
-                </ul>
+        <!-- Quick actions -->
+        <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+            <h3 class="mb-4 text-sm font-semibold text-gray-900">Aksi Cepat</h3>
+            <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <a href="{{ route('admin.products.create') }}" class="flex items-center gap-3 rounded-lg border border-gray-200 p-4 transition hover:border-emerald-300 hover:bg-emerald-50">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-lg font-bold text-emerald-600">+</span>
+                    <span class="text-sm font-medium text-gray-700">Tambah Produk</span>
+                </a>
+                <a href="{{ route('admin.categories.create') }}" class="flex items-center gap-3 rounded-lg border border-gray-200 p-4 transition hover:border-amber-300 hover:bg-amber-50">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-lg font-bold text-amber-600">+</span>
+                    <span class="text-sm font-medium text-gray-700">Tambah Kategori</span>
+                </a>
+                <a href="{{ route('admin.banners.create') }}" class="flex items-center gap-3 rounded-lg border border-gray-200 p-4 transition hover:border-sky-300 hover:bg-sky-50">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-lg font-bold text-sky-600">+</span>
+                    <span class="text-sm font-medium text-gray-700">Tambah Banner</span>
+                </a>
             </div>
         </div>
     </div>
-</x-admin-layout>
+</x-admin.layout>

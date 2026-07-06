@@ -1,4 +1,4 @@
-<x-shop-layout>
+<x-shop.layout>
     {{-- Hero / banner slider — komponen sendiri di components/shop/hero-banner.blade.php,
          edit di sana kalau perlu ubah tampilan hero untuk semua halaman. --}}
     <x-shop.hero-banner :banners="$banners" />
@@ -38,7 +38,7 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                     @foreach ($featuredProducts as $product)
-                        <x-product-card :product="$product" />
+                        <x-shop.product-card :product="$product" />
                     @endforeach
                 </div>
             </section>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                     @foreach ($latestProducts as $product)
-                        <x-product-card :product="$product" />
+                        <x-shop.product-card :product="$product" />
                     @endforeach
                 </div>
             </section>
@@ -66,4 +66,4 @@
             </div>
         @endif
     </div>
-</x-shop-layout>
+</x-shop.layout>

@@ -11,7 +11,7 @@
         ."Mohon info ketersediaan stok dan total pembayarannya. Terima kasih!";
 @endphp
 
-<x-shop-layout :title="$product->name">
+<x-shop.layout :title="$product->name">
 
     <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 
@@ -137,10 +137,10 @@
                 <h2 class="mb-5 text-lg font-bold text-gray-900">Produk Terkait</h2>
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
                     @foreach ($relatedProducts as $related)
-                        <x-product-card :product="$related" />
+                        <x-shop.product-card :product="$related" />
                     @endforeach
                 </div>
             </section>
         @endif
     </div>
-</x-shop-layout>
+</x-shop.layout>

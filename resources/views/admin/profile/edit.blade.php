@@ -1,4 +1,4 @@
-<x-admin-layout title="Profil">
+<x-admin.layout title="Profil">
     <x-slot name="header">
         <h2 class="truncate text-lg font-semibold text-gray-800">
             Profil Saya
@@ -19,4 +19,4 @@
             </div>
         </div>
     </div>
-</x-admin-layout>
+</x-admin.layout>

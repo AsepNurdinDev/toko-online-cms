@@ -2,7 +2,7 @@
     Navbar toko. Warna aksen mengikuti tema (--shop-primary) yang diatur
     admin di halaman Pengaturan, jadi component ini TIDAK perlu diedit
     untuk ganti warna per klien. Kalau perlu ubah struktur/menu, edit di sini saja
-    — perubahan otomatis berlaku di semua halaman yang pakai <x-shop-layout>.
+    — perubahan otomatis berlaku di semua halaman yang pakai <x-shop.layout>.
 --}}
 <header class="sticky top-0 z-30 border-b border-gray-200 bg-white/90 backdrop-blur">
     <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">

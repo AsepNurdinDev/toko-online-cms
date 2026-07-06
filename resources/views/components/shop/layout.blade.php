@@ -20,13 +20,13 @@
 
     {{--
         SISTEM TEMA — satu-satunya tempat yang perlu diubah untuk mengganti
-        warna aksen toko per klien. Admin bisa mengatur ini lewat halaman
-        Pengaturan > Warna Tema (tanpa perlu sentuh kode).
-        Semua komponen di components/shop/* memakai var(--shop-primary),
-        bukan warna Tailwind yang di-hardcode, jadi konsisten di semua halaman.
+        warna aksen toko per klien (developer yang ganti langsung di sini,
+        bukan lewat halaman admin). Semua komponen di components/shop/*
+        memakai var(--shop-primary), bukan warna Tailwind yang di-hardcode
+        di banyak file, jadi ganti 1 baris ini otomatis konsisten di semua halaman.
     --}}
     @php
-        $themePrimary = setting('theme_color', '#f59e0b');
+        $themePrimary = '#f59e0b'; // <- ganti warna brand toko di sini untuk klien baru
     @endphp
     <style>
         :root {

@@ -1,4 +1,4 @@
-<x-shop-layout title="Semua Produk">
+<x-shop.layout title="Semua Produk">
 
     <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8" x-data="{ filterOpen: false }">
 
@@ -172,7 +172,7 @@
                 @if ($products->isNotEmpty())
                     <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
                         @foreach ($products as $product)
-                            <x-product-card :product="$product" />
+                            <x-shop.product-card :product="$product" />
                         @endforeach
                     </div>
 
@@ -197,4 +197,4 @@
             </div>
         </div>
     </div>
-</x-shop-layout>
+</x-shop.layout>

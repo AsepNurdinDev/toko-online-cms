@@ -1,4 +1,4 @@
-<x-admin-layout title="Tambah Produk">
+<x-admin.layout title="Tambah Produk">
     <x-slot name="header">
         <h2 class="truncate text-lg font-semibold text-gray-800">
             Tambah Produk
@@ -24,15 +24,15 @@
 
                     <div class="space-y-5">
                         <div>
-                            <x-input-label for="name" value="Nama Produk" />
-                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                            <x-admin.input-label for="name" value="Nama Produk" />
+                            <x-admin.text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                 :value="old('name')" required autofocus placeholder="Contoh: Kaos Polos Katun" />
-                            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                            <x-admin.input-error class="mt-2" :messages="$errors->get('name')" />
                             <p class="mt-1 text-xs text-gray-400">SKU akan dibuat otomatis oleh sistem.</p>
                         </div>
 
                         <div>
-                            <x-input-label for="category_id" value="Kategori" />
+                            <x-admin.input-label for="category_id" value="Kategori" />
                             <select id="category_id" name="category_id" required
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500">
                                 <option value="">Pilih kategori</option>
@@ -40,37 +40,37 @@
                                     <option value="{{ $cat->id }}" @selected(old('category_id') == $cat->id)>{{ $cat->name }}</option>
                                 @endforeach
                             </select>
-                            <x-input-error class="mt-2" :messages="$errors->get('category_id')" />
+                            <x-admin.input-error class="mt-2" :messages="$errors->get('category_id')" />
                         </div>
 
                         <div>
-                            <x-input-label for="description" value="Deskripsi" />
+                            <x-admin.input-label for="description" value="Deskripsi" />
                             <textarea id="description" name="description" rows="5"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500"
                                 placeholder="Jelaskan detail produk, bahan, ukuran, dll.">{{ old('description') }}</textarea>
-                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
+                            <x-admin.input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
                         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                             <div>
-                                <x-input-label for="price" value="Harga Normal (Rp)" />
-                                <x-text-input id="price" name="price" type="number" min="0" step="1" class="mt-1 block w-full"
+                                <x-admin.input-label for="price" value="Harga Normal (Rp)" />
+                                <x-admin.text-input id="price" name="price" type="number" min="0" step="1" class="mt-1 block w-full"
                                     :value="old('price')" required placeholder="0" />
-                                <x-input-error class="mt-2" :messages="$errors->get('price')" />
+                                <x-admin.input-error class="mt-2" :messages="$errors->get('price')" />
                             </div>
                             <div>
-                                <x-input-label for="discount_price" value="Harga Diskon (opsional)" />
-                                <x-text-input id="discount_price" name="discount_price" type="number" min="0" step="1" class="mt-1 block w-full"
+                                <x-admin.input-label for="discount_price" value="Harga Diskon (opsional)" />
+                                <x-admin.text-input id="discount_price" name="discount_price" type="number" min="0" step="1" class="mt-1 block w-full"
                                     :value="old('discount_price')" placeholder="Kosongkan jika tidak ada diskon" />
-                                <x-input-error class="mt-2" :messages="$errors->get('discount_price')" />
+                                <x-admin.input-error class="mt-2" :messages="$errors->get('discount_price')" />
                             </div>
                         </div>
 
                         <div>
-                            <x-input-label for="stock" value="Stok" />
-                            <x-text-input id="stock" name="stock" type="number" min="0" step="1" class="mt-1 block w-full sm:w-48"
+                            <x-admin.input-label for="stock" value="Stok" />
+                            <x-admin.text-input id="stock" name="stock" type="number" min="0" step="1" class="mt-1 block w-full sm:w-48"
                                 :value="old('stock', 0)" required placeholder="0" />
-                            <x-input-error class="mt-2" :messages="$errors->get('stock')" />
+                            <x-admin.input-error class="mt-2" :messages="$errors->get('stock')" />
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                     <h3 class="mb-1 text-base font-semibold text-gray-900">Galeri Foto Tambahan</h3>
                     <p class="mb-4 text-xs text-gray-500">Foto-foto ini akan tampil di halaman detail produk agar pembeli bisa lihat dari berbagai sisi.</p>
                     <x-admin.gallery-upload name="gallery" />
-                    <x-input-error class="mt-2" :messages="collect($errors->get('gallery.*'))->flatten()->all()" />
+                    <x-admin.input-error class="mt-2" :messages="collect($errors->get('gallery.*'))->flatten()->all()" />
                 </div>
 
                 <div class="space-y-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
@@ -121,4 +121,4 @@
             </div>
         </form>
     </div>
-</x-admin-layout>
+</x-admin.layout>

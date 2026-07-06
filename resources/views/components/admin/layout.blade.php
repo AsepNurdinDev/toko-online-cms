@@ -8,12 +8,13 @@
 
     <link rel="icon" href="data:,">
 
-    <title>{{ $title ? $title.' — ' : '' }}{{ config('app.name', 'Laravel') }} Admin</title>
+    <title>{{ $title ? $title.' — ' : '' }}{{ setting('site_name', config('app.name', 'Laravel')) }} Admin</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>[x-cloak] { display: none !important; }</style>
 </head>
 <body class="font-sans antialiased bg-gray-50 text-gray-900" x-data="{ sidebarOpen: false }">
 
@@ -37,7 +38,7 @@
         <!-- Sidebar -->
         <aside
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-            class="fixed inset-y-0 left-0 z-40 flex w-72 flex-col bg-slate-900 transition-transform duration-200 ease-in-out lg:static lg:z-auto lg:translate-x-0 lg:shrink-0"
+            class="fixed inset-y-0 left-0 z-40 flex w-72 flex-col bg-slate-900 transition-transform duration-200 ease-in-out lg:sticky lg:top-0 lg:z-auto lg:h-screen lg:translate-x-0 lg:self-start lg:shrink-0"
         >
             <!-- Brand -->
             <div class="flex h-16 shrink-0 items-center gap-3 border-b border-slate-800 px-6">
@@ -54,55 +55,55 @@
             </div>
 
             <!-- Navigation -->
-            <nav class="flex-1 space-y-6 overflow-y-auto px-3 py-6">
+            <nav class="flex-1 space-y-6 overflow-y-auto px-3 py-6" @click="sidebarOpen = false">
                 <div class="space-y-1">
                     <p class="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Utama</p>
 
-                    <x-admin-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                    <x-admin.nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7m-14 0v8a1 1 0 001 1h3m10-9l2 2m-2-2v8a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                             </svg>
                         </x-slot>
                         Dashboard
-                    </x-admin-nav-link>
+                    </x-admin.nav-link>
                 </div>
 
                 <div class="space-y-1">
                     <p class="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Katalog</p>
 
-                    <x-admin-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
+                    <x-admin.nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5.586a1 1 0 01.707.293l7.414 7.414a1 1 0 010 1.414l-7.586 7.586a1 1 0 01-1.414 0L4.293 12.293A1 1 0 014 11.586V6a3 3 0 013-3z" />
                             </svg>
                         </x-slot>
                         Kategori
-                    </x-admin-nav-link>
+                    </x-admin.nav-link>
 
-                    <x-admin-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
+                    <x-admin.nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                             </svg>
                         </x-slot>
                         Produk
-                    </x-admin-nav-link>
+                    </x-admin.nav-link>
 
-                    <x-admin-nav-link :href="route('admin.banners.index')" :active="request()->routeIs('admin.banners.*')">
+                    <x-admin.nav-link :href="route('admin.banners.index')" :active="request()->routeIs('admin.banners.*')">
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 6h16v12H4V6z" />
                             </svg>
                         </x-slot>
                         Banner
-                    </x-admin-nav-link>
+                    </x-admin.nav-link>
                 </div>
 
                 <div class="space-y-1">
                     <p class="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Sistem</p>
 
-                    <x-admin-nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.settings.*')">
+                    <x-admin.nav-link :href="route('admin.settings.edit')" :active="request()->routeIs('admin.settings.*')">
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -110,16 +111,16 @@
                             </svg>
                         </x-slot>
                         Pengaturan
-                    </x-admin-nav-link>
+                    </x-admin.nav-link>
 
-                    <x-admin-nav-link :href="route('admin.profile.edit')" :active="request()->routeIs('admin.profile.*')">
+                    <x-admin.nav-link :href="route('admin.profile.edit')" :active="request()->routeIs('admin.profile.*')">
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </x-slot>
                         Profil Saya
-                    </x-admin-nav-link>
+                    </x-admin.nav-link>
                 </div>
             </nav>
 
@@ -170,7 +171,7 @@
                     Lihat Toko
                 </a>
 
-                <x-dropdown align="right" width="48">
+                <x-admin.dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900">
                             <span class="hidden sm:inline">{{ Auth::user()->name ?? 'Admin' }}</span>
@@ -181,19 +182,19 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('admin.profile.edit')">
+                        <x-admin.dropdown-link :href="route('admin.profile.edit')">
                             Profil Saya
-                        </x-dropdown-link>
+                        </x-admin.dropdown-link>
 
                         <form method="POST" action="{{ route('admin.logout') }}">
                             @csrf
-                            <x-dropdown-link :href="route('admin.logout')"
+                            <x-admin.dropdown-link :href="route('admin.logout')"
                                     onclick="event.preventDefault(); this.closest('form').submit();">
                                 Keluar
-                            </x-dropdown-link>
+                            </x-admin.dropdown-link>
                         </form>
                     </x-slot>
-                </x-dropdown>
+                </x-admin.dropdown>
             </header>
 
             <!-- Flash messages -->
@@ -227,5 +228,24 @@
             </main>
         </div>
     </div>
+
+    {{-- Dialog konfirmasi kustom (pengganti confirm()/alert() bawaan browser).
+         Satu modal ini dipakai untuk SEMUA aksi konfirmasi di halaman admin,
+         dipicu lewat event 'open-confirm' — lihat components/admin/delete-button.blade.php --}}
+    <x-admin.confirm-dialog />
+
+    <script>
+        // Reset state sidebar saat halaman dipulihkan dari cache back/forward browser,
+        // supaya overlay mobile tidak "nyangkut" terbuka dan memblokir tap di halaman.
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted && window.Alpine) {
+                document.querySelectorAll('[x-data]').forEach(function (el) {
+                    if (el._x_dataStack && el._x_dataStack[0] && 'sidebarOpen' in el._x_dataStack[0]) {
+                        el._x_dataStack[0].sidebarOpen = false;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

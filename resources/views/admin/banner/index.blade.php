@@ -1,4 +1,4 @@
-<x-admin-layout title="Banner">
+<x-admin.layout title="Banner">
     <x-slot name="header">
         <h2 class="truncate text-lg font-semibold text-gray-800">
             Banner
@@ -23,14 +23,14 @@
                 <div class="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
                     <div class="relative aspect-[16/7] bg-gray-100">
                         <img src="{{ storageUrl($banner->image) }}"
-                            alt="{{ $banner->title }}" class="h-full w-full object-cover">
+                            alt="{{ $banner->title ?: 'Banner' }}" class="h-full w-full object-cover">
                         <span class="absolute left-3 top-3 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium
                             {{ $banner->is_active ? 'bg-emerald-500 text-white' : 'bg-gray-800/70 text-white' }}">
                             {{ $banner->is_active ? 'Aktif' : 'Nonaktif' }}
                         </span>
                     </div>
                     <div class="p-4">
-                        <p class="truncate font-medium text-gray-900">{{ $banner->title }}</p>
+                        <p class="truncate font-medium text-gray-900">{{ $banner->title ?: 'Tanpa judul' }}</p>
                         <p class="truncate text-xs text-gray-500">{{ $banner->subtitle ?: '—' }}</p>
 
                         <div class="mt-4 flex items-center justify-between">
@@ -42,16 +42,11 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </a>
-                                <form action="{{ route('admin.banners.destroy', $banner->id) }}" method="POST"
-                                    onsubmit="return confirm('Hapus banner &quot;{{ $banner->title }}&quot;? Tindakan ini tidak bisa dibatalkan.');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="rounded-md p-2 text-gray-500 transition hover:bg-red-50 hover:text-red-600" title="Hapus">
-                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
-                                </form>
+                                <x-admin.delete-button
+                                    :action="route('admin.banners.destroy', $banner->id)"
+                                    title="Hapus Banner?"
+                                    :confirm="'Hapus banner \''.($banner->title ?: 'ini').'\'? Tindakan ini tidak bisa dibatalkan.'"
+                                />
                             </div>
                         </div>
                     </div>
@@ -69,4 +64,4 @@
 
         <div>{{ $banners->links() }}</div>
     </div>
-</x-admin-layout>
+</x-admin.layout>

@@ -32,14 +32,16 @@
         fileSize: null,
         previewUrl: @js($current ?: null),
         hasNew: false,
+        errorMsg: null,
         onChange(event) {
             const file = event.target.files[0];
             if (!file) return;
             if (!file.type.startsWith('image/')) {
-                alert('File yang dipilih harus berupa gambar (JPG, PNG, atau WEBP).');
+                this.errorMsg = 'File yang dipilih harus berupa gambar (JPG, PNG, atau WEBP).';
                 event.target.value = '';
                 return;
             }
+            this.errorMsg = null;
             this.fileName = file.name;
             this.fileSize = (file.size / 1024).toFixed(0) + ' KB';
             this.previewUrl = URL.createObjectURL(file);
@@ -49,6 +51,7 @@
             this.$refs.input.value = '';
             this.fileName = null;
             this.hasNew = false;
+            this.errorMsg = null;
             this.previewUrl = @js($current ?: null);
         },
     }"
@@ -111,7 +114,7 @@
             </button>
         </div>
 
-        <div x-show="!hasNew" class="mt-2 text-xs text-gray-500">
+        <div x-show="!hasNew && !errorMsg" class="mt-2 text-xs text-gray-500">
             @if ($current)
                 Foto saat ini sudah tersimpan. Pilih gambar baru untuk menggantinya.
             @else
@@ -119,12 +122,19 @@
             @endif
         </div>
 
+        <div x-show="errorMsg" x-transition style="display: none;" class="mt-2 flex items-start gap-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+            <svg class="mt-0.5 h-4 w-4 shrink-0 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.007v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span x-text="errorMsg"></span>
+        </div>
+
         @if ($hint)
             <p class="mt-1 text-xs text-gray-400">{{ $hint }}</p>
         @endif
 
         @if ($errors)
-            <x-input-error class="mt-2" :messages="$errors" />
+            <x-admin.input-error class="mt-2" :messages="$errors" />
         @endif
     </div>
 </div>
