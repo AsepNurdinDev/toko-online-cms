@@ -4,59 +4,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ isset($title) ? $title.' — ' : '' }}{{ setting('site_name', config('app.name')) }}</title>
-    <meta name="description" content="{{ setting('site_description', '') }}">
-
-    @if (setting('favicon'))
-        <link rel="icon" href="{{ storageUrl(setting('favicon')) }}">
-    @endif
-
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
-
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    
+    <!-- CSS & Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    {{--
-        SISTEM TEMA — satu-satunya tempat yang perlu diubah untuk mengganti
-        warna aksen toko per klien (developer yang ganti langsung di sini,
-        bukan lewat halaman admin). Semua komponen di components/shop/*
-        memakai var(--shop-primary), bukan warna Tailwind yang di-hardcode
-        di banyak file, jadi ganti 1 baris ini otomatis konsisten di semua halaman.
-    --}}
-    @php
-        $themePrimary = '#f59e0b'; // <- ganti warna brand toko di sini untuk klien baru
-    @endphp
-    <style>
-        :root {
-            --shop-primary: {{ $themePrimary }};
-            --shop-primary-dark: color-mix(in srgb, {{ $themePrimary }} 80%, black);
-            --shop-primary-hover: color-mix(in srgb, {{ $themePrimary }} 88%, black);
-            --shop-primary-soft: color-mix(in srgb, {{ $themePrimary }} 12%, white);
-        }
-    </style>
 </head>
-<body class="min-h-screen bg-gray-50 font-sans text-gray-900 antialiased" x-data="{ mobileMenu: false }">
-
-    <x-shop.topbar />
+<body class="bg-cream-100 dark:bg-ink-950 text-ink-900 dark:text-cream-100 font-sans min-h-screen flex flex-col transition-colors duration-300">
+    
+    <!-- Panggil Navbar Baru yang sudah kita buat -->
     <x-shop.navbar />
 
-    <!-- Flash message -->
-    @if (session('success'))
-        <div class="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-                {{ session('success') }}
-            </div>
-        </div>
-    @endif
-
-    <!-- Page content -->
-    <main>
+    <main class="flex-grow">
         {{ $slot }}
     </main>
 
     <x-shop.footer />
     <x-shop.whatsapp-button />
+
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 </html>

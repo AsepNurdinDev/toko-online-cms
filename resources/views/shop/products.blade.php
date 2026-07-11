@@ -4,7 +4,7 @@
 
         <!-- Breadcrumb -->
         <nav class="mb-3 flex items-center gap-1.5 text-xs text-gray-500">
-            <a href="{{ route('shop.home') }}" class="flex items-center gap-1 hover:text-[var(--shop-primary)]">
+            <a href="{{ route('shop.home') }}" class="flex items-center gap-1 transition hover:text-[var(--shop-primary-dark)]">
                 <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7m-14 0v8a1 1 0 001 1h3m10-9l2 2m-2-2v8a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
@@ -13,12 +13,12 @@
             <svg class="h-3 w-3 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
-            <span class="font-medium text-gray-700">{{ $activeCategory->name ?? 'Semua Produk' }}</span>
+            <span class="truncate font-medium text-gray-700">{{ $activeCategory->name ?? 'Semua Produk' }}</span>
         </nav>
 
         <div class="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-                <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            <div class="min-w-0">
+                <h1 class="truncate text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                     {{ $activeCategory->name ?? 'Semua Produk' }}
                 </h1>
                 @if (request('q'))
@@ -30,7 +30,7 @@
 
             <!-- Tombol filter (mobile only) -->
             <button @click="filterOpen = true"
-                class="mt-3 inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm sm:hidden">
+                class="mt-3 inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 sm:hidden">
                 <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h18M6 9h12M9.75 13.5h4.5M11.25 18h1.5" />
                 </svg>
@@ -41,11 +41,11 @@
         <!-- Chip filter aktif -->
         @if (request('q') || $activeCategory ?? null)
             <div class="mt-4 flex flex-wrap items-center gap-2">
-                <span class="text-xs font-medium uppercase tracking-wide text-gray-400">Filter aktif:</span>
+                <span class="text-xs font-medium uppercase tracking-wide text-gray-500">Filter aktif:</span>
 
                 @if ($activeCategory ?? null)
                     <a href="{{ route('shop.products', array_filter(['q' => request('q')])) }}"
-                        class="inline-flex items-center gap-1.5 rounded-full bg-[var(--shop-primary-soft)] py-1 pl-3 pr-2 text-xs font-medium text-[var(--shop-primary-dark)]">
+                        class="inline-flex items-center gap-1.5 rounded-full bg-[var(--shop-primary-soft)] py-1 pl-3 pr-2 text-xs font-medium text-[var(--shop-primary-dark)] transition hover:brightness-95">
                         {{ $activeCategory->name }}
                         <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -55,7 +55,7 @@
 
                 @if (request('q'))
                     <a href="{{ route('shop.products', array_filter(['kategori' => request('kategori')])) }}"
-                        class="inline-flex items-center gap-1.5 rounded-full bg-gray-100 py-1 pl-3 pr-2 text-xs font-medium text-gray-700">
+                        class="inline-flex items-center gap-1.5 rounded-full bg-gray-100 py-1 pl-3 pr-2 text-xs font-medium text-gray-700 transition hover:bg-gray-200">
                         "{{ request('q') }}"
                         <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -63,7 +63,7 @@
                     </a>
                 @endif
 
-                <a href="{{ route('shop.products') }}" class="text-xs font-medium text-gray-400 hover:text-gray-600 hover:underline">
+                <a href="{{ route('shop.products') }}" class="text-xs font-medium text-gray-500 hover:text-gray-700 hover:underline">
                     Hapus semua
                 </a>
             </div>
@@ -75,7 +75,7 @@
             <aside class="hidden lg:col-span-1 lg:block">
                 <div class="sticky top-24 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
                     <h3 class="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
-                        <svg class="h-4 w-4 text-[var(--shop-primary)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                        <svg class="h-4 w-4 text-[var(--shop-primary-dark)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h18M6 9h12M9.75 13.5h4.5M11.25 18h1.5" />
                         </svg>
                         Kategori
@@ -116,7 +116,7 @@
                 style="display: none;">
                 <div class="mb-4 flex items-center justify-between">
                     <h3 class="text-sm font-semibold text-gray-900">Filter Kategori</h3>
-                    <button @click="filterOpen = false" class="rounded-md p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                    <button @click="filterOpen = false" class="rounded-md p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600">
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -154,10 +154,10 @@
                         @if (request('kategori'))
                             <input type="hidden" name="kategori" value="{{ request('kategori') }}">
                         @endif
-                        <label for="sort" class="text-sm text-gray-400">Urutkan</label>
-                        <div class="relative">
+                        <label for="sort" class="shrink-0 text-sm text-gray-500">Urutkan</label>
+                        <div class="relative min-w-0 flex-1 sm:flex-none">
                             <select id="sort" name="sort" onchange="this.form.submit()"
-                                class="appearance-none rounded-lg border-gray-200 bg-gray-50 py-2 pl-3 pr-8 text-sm font-medium text-gray-700 shadow-sm focus:border-[var(--shop-primary)] focus:bg-white focus:ring-[var(--shop-primary)]">
+                                class="w-full appearance-none rounded-lg border-gray-200 bg-gray-50 py-2 pl-3 pr-8 text-sm font-medium text-gray-700 shadow-sm focus:border-[var(--shop-primary-dark)] focus:bg-white focus:ring-[var(--shop-primary-dark)]">
                                 <option value="terbaru" @selected($sort === 'terbaru')>Terbaru</option>
                                 <option value="termurah" @selected($sort === 'termurah')>Harga Terendah</option>
                                 <option value="termahal" @selected($sort === 'termahal')>Harga Tertinggi</option>
@@ -170,7 +170,7 @@
                 </div>
 
                 @if ($products->isNotEmpty())
-                    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+                    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 xl:grid-cols-4">
                         @foreach ($products as $product)
                             <x-shop.product-card :product="$product" />
                         @endforeach
@@ -188,8 +188,10 @@
                         </div>
                         <p class="mt-4 text-sm font-medium text-gray-900">Produk tidak ditemukan</p>
                         <p class="mt-1 text-sm text-gray-500">Coba kata kunci atau kategori lain.</p>
+                        {{-- Pakai shop-primary-dark sebagai background tombol (bukan shop-primary mentah)
+                             supaya teks putih di atasnya tetap terbaca walau warna tema klien terang/pastel --}}
                         <a href="{{ route('shop.products') }}"
-                            class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[var(--shop-primary)] px-4 py-2 text-xs font-semibold text-white transition hover:brightness-90">
+                            class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[var(--shop-primary-dark)] px-4 py-2 text-xs font-semibold text-white transition hover:brightness-110">
                             Lihat Semua Produk
                         </a>
                     </div>
