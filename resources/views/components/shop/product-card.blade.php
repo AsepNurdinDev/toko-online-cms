@@ -24,11 +24,11 @@
         @endif
     </a>
 
-    <div class="flex flex-1 flex-col p-3 sm:p-4">
+    <div class="flex flex-1 text-black flex-col p-3 sm:p-4">
         @if ($product->category)
             {{-- Pakai varian "dark" tema, bukan warna tema mentah — supaya tetap terbaca
                  di atas putih apa pun warna tema yang dipilih (termasuk warna terang/pastel) --}}
-            <span class="truncate text-[11px] font-semibold uppercase tracking-wide text-gray-700 sm:text-xs">
+            <span class="truncate text-[11px] font-semibold uppercase tracking-wide text-black sm:text-xs">
                 {{ $product->category->name }}
             </span>
         @endif

@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-cream-100 dark:bg-ink-950 text-ink-900 dark:text-cream-100 font-sans min-h-screen flex flex-col transition-colors duration-300">
+<body class=" text-ink-900 dark:text-cream-100 font-sans min-h-screen flex flex-col transition-colors duration-300">
     
     <!-- Panggil Navbar Baru yang sudah kita buat -->
     <x-shop.navbar />

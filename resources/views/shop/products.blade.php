@@ -30,7 +30,7 @@
 
             <!-- Tombol filter (mobile only) -->
             <button @click="filterOpen = true"
-                class="mt-3 inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 sm:hidden">
+                class="mt-3 inline-flex shrink-0 items-center justify-center gap-2 text-black rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 sm:hidden">
                 <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h18M6 9h12M9.75 13.5h4.5M11.25 18h1.5" />
                 </svg>

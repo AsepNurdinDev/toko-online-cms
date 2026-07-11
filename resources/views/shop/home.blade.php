@@ -9,8 +9,8 @@
         @if ($categories->isNotEmpty())
             <section class="mb-12">
                 <div class="mb-5 flex items-center justify-between">
-                    <h2 class="text-lg font-bold text-gray-700">Kategori</h2>
-                    <a href="{{ route('shop.products') }}" class="text-sm font-medium text-[var(--shop-primary)] hover:underline">Lihat semua &rarr;</a>
+                    <h2 class="text-lg font-bold text-black">Kategori</h2>
+                    <a href="{{ route('shop.products') }}" class="text-sm font-medium text-black text-[var(--shop-primary)] hover:underline">Lihat semua &rarr;</a>
                 </div>
                 <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
                     @foreach ($categories as $category)
@@ -70,7 +70,7 @@
 
                                     @default
                                         {{-- Ikon default untuk kategori lain --}}
-                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                        <svg class="h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h10" />
                                         </svg>
                                 @endswitch
@@ -88,7 +88,7 @@
             <section class="mb-12">
                 <div class="mb-5 flex items-center justify-between">
                     <h2 class="text-lg font-bold text-gray-700">Produk Unggulan</h2>
-                    <a href="{{ route('shop.products') }}" class="text-sm font-medium text-[var(--shop-primary)] hover:underline">Lihat semua &rarr;</a>
+                    <a href="{{ route('shop.products') }}" class="text-sm font-medium text-black text-[var(--shop-primary)] hover:underline">Lihat semua &rarr;</a>
                 </div>
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                     @foreach ($featuredProducts as $product)
@@ -103,7 +103,7 @@
             <section>
                 <div class="mb-5 flex items-center justify-between">
                     <h2 class="text-lg font-bold text-gray-700">Produk Terbaru</h2>
-                    <a href="{{ route('shop.products') }}" class="text-sm font-medium text-[var(--shop-primary)] hover:underline">Lihat semua &rarr;</a>
+                    <a href="{{ route('shop.products') }}" class="text-sm font-medium text-black text-[var(--shop-primary)] hover:underline">Lihat semua &rarr;</a>
                 </div>
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                     @foreach ($latestProducts as $product)

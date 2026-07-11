@@ -21,8 +21,8 @@
             <span class="mx-1">/</span>
             <a href="{{ route('shop.products') }}" class="hover:text-[var(--shop-primary)]">Produk</a>
             @if ($product->category)
-                <span class="mx-1">/</span>
-                <a href="{{ route('shop.products', ['kategori' => $product->category->slug]) }}" class="hover:text-[var(--shop-primary)]">{{ $product->category->name }}</a>
+                <span class="mx-1 text-black">/</span>
+                <a href="{{ route('shop.products', ['kategori' => $product->category->slug]) }}" class="hover:text-[var(--shop-primary)] text-black">{{ $product->category->name }}</a>
             @endif
             <span class="mx-1">/</span>
             <span class="text-gray-700">{{ $product->name }}</span>
@@ -75,7 +75,7 @@
                     dec() { if (this.qty > 1) this.qty-- }
                 }">
                 @if ($product->category)
-                    <span class="text-xs font-semibold uppercase tracking-wide text-[var(--shop-primary)]">{{ $product->category->name }}</span>
+                    <span class="text-xs font-semibold uppercase text-black tracking-wide text-[var(--shop-primary)]">{{ $product->category->name }}</span>
                 @endif
 
                 <h1 class="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">{{ $product->name }}</h1>
@@ -126,7 +126,7 @@
                 @endif
 
                 <p class="mt-3 text-xs text-gray-400">
-                    Pemesanan diproses langsung lewat chat WhatsApp — Anda akan diarahkan ke aplikasi WhatsApp dengan pesan yang sudah terisi otomatis.
+                    Pemesanan diproses langsung lewat chat WhatsApp Anda akan diarahkan ke aplikasi WhatsApp dengan pesan yang sudah terisi otomatis.
                 </p>
             </div>
         </div>
