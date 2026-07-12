@@ -66,7 +66,7 @@
                 </div>
                 <div class="reveal order-1 md:order-2">
                     <img src="{{ asset('images/about-garasi.jpg') }}"
-                         onerror="this.src='https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&q=80&w=700'"
+                         onerror="this.src='https://www.harley-davidson.com/ctfasset/5vy1mse9fkav/5XqAoCHCcfFBOHJgFZEWyZ/9d768d3b865230635d81b95411f0f83d/touring-hc2.jpg'"
                          alt="Garasi klasik Sudut Lawas"
                          class="rounded-2xl shadow-xl object-cover h-96 w-full border-4 border-cream-50 dark:border-ink-800">
                 </div>
@@ -225,7 +225,7 @@
                         <span class="block bg-cream-50 dark:bg-ink-900 p-2 pb-6 shadow-lg group-hover:shadow-2xl transition duration-300">
                             <span class="block aspect-[4/5] w-full overflow-hidden bg-ink-900/5">
                                 <img src="{{ asset($item['image']) }}"
-                                     onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=500'"
+                                     onerror="this.src='https://www.harley-davidson.com/ctfasset/5vy1mse9fkav/5XqAoCHCcfFBOHJgFZEWyZ/9d768d3b865230635d81b95411f0f83d/touring-hc2.jpg'"
                                      alt="{{ $item['caption'] ?? 'Galeri Sudut Lawas' }}"
                                      loading="lazy"
                                      class="h-full w-full object-cover">
