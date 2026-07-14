@@ -4,6 +4,8 @@ namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Laravel\Facades\Image;
 
 class MediaService
 {
@@ -11,7 +13,14 @@ class MediaService
         UploadedFile $file,
         string $directory = 'uploads'
     ): string {
-        return $file->store($directory, 'public');
+        $filename = Str::uuid().'.jpg';
+        $path = $directory.'/'.$filename;
+
+        $image = Image::read($file);
+        $image->scaleDown(width: 1200); 
+        $image->save(Storage::disk('public')->path($path), quality: 75);
+
+        return $path;
     }
 
     public function delete(?string $path): void

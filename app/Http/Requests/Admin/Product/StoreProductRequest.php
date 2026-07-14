@@ -29,9 +29,9 @@ public function rules(): array
         'price'          => ['required', 'numeric', 'min:0'],
         'discount_price' => ['nullable', 'numeric', 'min:0'],
         'stock'          => ['required', 'integer', 'min:0'],
-        'thumbnail'      => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        'thumbnail'      => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:819'],
         'gallery'        => ['nullable', 'array', 'max:10'],
-        'gallery.*'      => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        'gallery.*'      => ['image', 'mimes:jpg,jpeg,png,webp', 'max:8192'],
         'is_featured'    => ['required', 'boolean'],
         'is_active'      => ['required', 'boolean'],
     ];
