@@ -18,11 +18,7 @@ class MediaService
 
         $image = Image::decode($file);
         $image->scale(width: 1200);
-
-        Storage::disk('public')->put(
-            $path,
-            $image->encodeByExtension('jpg', quality: 75)
-        );
+        $image->save(Storage::disk('public')->path($path), quality: 75);
 
         return $path;
     }
