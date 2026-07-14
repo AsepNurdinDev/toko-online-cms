@@ -35,7 +35,9 @@ class SettingController extends Controller
 
         if ($request->hasFile('favicon')) {
             $this->mediaService->delete(Setting::where('key', 'favicon')->value('value'));
-            $data['favicon'] = $this->mediaService->upload($request->file('favicon'), 'settings');
+            // uploadRaw: favicon TIDAK boleh melewati proses resize/konversi gambar biasa,
+            // karena file .ico akan rusak/gagal diproses oleh Intervention Image.
+            $data['favicon'] = $this->mediaService->uploadRaw($request->file('favicon'), 'settings');
         } else {
             unset($data['favicon']);
         }

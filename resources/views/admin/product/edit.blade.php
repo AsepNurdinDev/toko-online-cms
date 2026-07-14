@@ -85,6 +85,7 @@
                         label="Pilih Gambar"
                         change-label="Ganti Gambar"
                         :errors="$errors->get('thumbnail')"
+                        hint="Format JPG/PNG/WEBP, maks. 8MB. Foto akan otomatis dikompres di server."
                     />
                     <p class="mt-2 text-xs text-gray-400">Foto ini yang tampil di kartu produk & daftar toko.</p>
                 </div>

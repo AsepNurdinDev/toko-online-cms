@@ -40,7 +40,7 @@
                         name="image"
                         shape="banner"
                         label="Pilih Gambar"
-                        hint="Disarankan rasio 21:7, format JPG/PNG/WEBP, maks. 2MB."
+                        hint="Disarankan rasio 21:7, format JPG/PNG/WEBP, maks. 8MB (otomatis dikompres di server)."
                         :required="true"
                         :errors="$errors->get('image')"
                     />

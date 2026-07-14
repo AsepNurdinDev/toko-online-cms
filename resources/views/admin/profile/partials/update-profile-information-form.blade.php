@@ -19,6 +19,7 @@
             shape="circle"
             change-label="Ganti Foto"
             :errors="$errors->get('photo')"
+            hint="Format JPG/PNG/WEBP, maks. 8MB."
         />
 
         <div>

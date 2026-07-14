@@ -7,6 +7,7 @@
     'hint' => null,
     'required' => false,
     'errors' => null,         // $errors->get('field') dari controller
+    'maxSizeMb' => 8,         // harus selaras dengan rule 'max' (KB) di FormRequest terkait
 ])
 
 @php
@@ -33,11 +34,17 @@
         previewUrl: @js($current ?: null),
         hasNew: false,
         errorMsg: null,
+        maxBytes: {{ $maxSizeMb }} * 1024 * 1024,
         onChange(event) {
             const file = event.target.files[0];
             if (!file) return;
             if (!file.type.startsWith('image/')) {
                 this.errorMsg = 'File yang dipilih harus berupa gambar (JPG, PNG, atau WEBP).';
+                event.target.value = '';
+                return;
+            }
+            if (file.size > this.maxBytes) {
+                this.errorMsg = 'Ukuran file terlalu besar (' + (file.size / 1024 / 1024).toFixed(1) + 'MB). Maksimal {{ $maxSizeMb }}MB.';
                 event.target.value = '';
                 return;
             }

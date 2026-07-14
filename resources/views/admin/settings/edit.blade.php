@@ -79,7 +79,7 @@
             <!-- Logo & Favicon -->
             <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
                 <h3 class="text-base font-semibold text-gray-900">Logo &amp; Favicon</h3>
-                <p class="mt-1 text-sm text-gray-500">Format gambar, maks. 2MB untuk logo dan 1MB untuk favicon.</p>
+                <p class="mt-1 text-sm text-gray-500">Format gambar, maks. 8MB untuk logo dan 1MB untuk favicon.</p>
 
                 <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <x-admin.image-upload
@@ -87,6 +87,8 @@
                         :current="!empty($settings['logo']) ? storageUrl($settings['logo']) : null"
                         label="Pilih Logo"
                         :errors="$errors->get('logo')"
+                        :max-size-mb="8"
+                        hint="Format JPG/PNG/SVG/WEBP, maks. 8MB (otomatis dikompres di server)."
                     />
 
                     <x-admin.image-upload
@@ -94,6 +96,8 @@
                         :current="!empty($settings['favicon']) ? storageUrl($settings['favicon']) : null"
                         label="Pilih Favicon"
                         :errors="$errors->get('favicon')"
+                        :max-size-mb="1"
+                        hint="Format ICO atau PNG, maks. 1MB. Favicon tidak dikompres agar formatnya tidak rusak."
                     />
                 </div>
             </div>
