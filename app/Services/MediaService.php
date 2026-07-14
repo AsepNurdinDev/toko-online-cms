@@ -16,9 +16,13 @@ class MediaService
         $filename = Str::uuid().'.jpg';
         $path = $directory.'/'.$filename;
 
-        $image = Image::read($file);
-        $image->scaleDown(width: 1200); 
-        $image->save(Storage::disk('public')->path($path), quality: 75);
+        $image = Image::decode($file);
+        $image->scale(width: 1200);
+
+        Storage::disk('public')->put(
+            $path,
+            $image->encodeByExtension('jpg', quality: 75)
+        );
 
         return $path;
     }
